@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block cont %}
+<h1>Welcome, {{ user.username }}!</h1>
+<a href="{{ url_for('views.download_products') }}" class="btn btn-primary">Download Products List</a>
+
+<h1 align="center">Add a Product</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Product Name</label>
+        <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Enter product name"
+        />
+    </div>
+
+    <div class="form-group">
+        <label for="description">Product Description</label>
+        <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            placeholder="Enter product description"
+        ></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="code">Product Code</label>
+        <input
+            type="text"
+            class="form-control"
+            id="code"
+            name="code"
+            placeholder="Enter product code"
+        />
+    </div>
+
+    <div class="form-group">
+        <label for="image">Product Image</label>
+        <input
+            type="file"
+            class="form-control"
+            id="image"
+            name="image"
+            accept="image/*"
+        />
+    </div>
+
+    <br />
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Product</button>
+    </div>
+</form>
+
+<h1 align="center">Your Products</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Code</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>
+                <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}" style="width: 100px; height: auto;" />
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.code }}</td>
+            <td>
+                <a href="{{ url_for('views.edit_product', product_id=product.id) }}" class="btn btn-warning">Edit</a>
+                <form method="POST" action="/" style="display:inline;">
+                    <input type="hidden" name="deleteProduct" value="{{ product.id }}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Product
+{% endblock %}
+
+{% block cont %}
+<h1 align="center">Edit Product</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Product Name</label>
+        <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            value="{{ product.name }}"
+            placeholder="Enter product name"
+        />
+    </div>
+
+    <div class="form-group">
+        <label for="description">Product Description</label>
+        <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            placeholder="Enter product description">{{ product.description }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="code">Product Code</label>
+        <input
+            type="text"
+            class="form-control"
+            id="code"
+            name="code"
+            value="{{ product.code }}"
+            placeholder="Enter product code"
+        />
+    </div>
+
+    <div class="form-group">
+        <label for="image">Product Image</label>
+        <input
+            type="file"
+            class="form-control"
+            id="image"
+            name="image"
+            accept="image/*"
+        />
+    </div>
+
+    <br />
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Update Product</button>
+    </div>
+</form>
+
+{% endblock %}
